@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ImageDropZone from './ImageDropZone';
 
 const UserProfile = () => {
 	const [userList, setuserList] = useState([]);
@@ -20,7 +21,8 @@ const UserProfile = () => {
 				return (
 					<div key={index}>
 						<h1>{user.userName}</h1>
-						<p>{user.userId}</p>
+            <p>{user.userId}</p>
+            <ImageDropZone userId={user.userId} />
 					</div>
 				);
 			})}
