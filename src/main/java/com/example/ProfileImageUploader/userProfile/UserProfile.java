@@ -1,6 +1,7 @@
 package com.example.ProfileImageUploader.userProfile;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserProfile {
@@ -31,8 +32,9 @@ public class UserProfile {
         this.userName = userName;
     }
 
-    public String getProfileImageLink() {
-        return profileImageLink;
+    // Image link can be null
+    public Optional<String> getProfileImageLink() {
+        return Optional.ofNullable(profileImageLink);
     }
 
     public void setProfileImageLink(String profileImageLink) {
