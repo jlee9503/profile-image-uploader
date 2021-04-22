@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class UserProfile {
 
-    private UUID userId;
-    private String userName;
+    private final UUID userId;
+    private final String userName;
     private String profileImageLink;
 
     public UserProfile(UUID userId, String userName, String profileImageLink) {
@@ -20,16 +20,8 @@ public class UserProfile {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     // Image link can be null

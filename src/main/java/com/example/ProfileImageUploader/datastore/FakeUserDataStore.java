@@ -14,8 +14,8 @@ public class FakeUserDataStore {
 
     // Add fake user data
     static {
-        userProfileList.add(new UserProfile(UUID.randomUUID(), "johndoe", null));
-        userProfileList.add(new UserProfile(UUID.randomUUID(), "janesmith", null));
+        userProfileList.add(new UserProfile(UUID.fromString("3a5b3778-9447-4843-a983-a8f4d5d0a5f2"), "johndoe", null));
+        userProfileList.add(new UserProfile(UUID.fromString("7901ae03-5890-430e-86a9-c5b61d791ef8"), "janesmith", null));
     }
 
     // Get all users in the list

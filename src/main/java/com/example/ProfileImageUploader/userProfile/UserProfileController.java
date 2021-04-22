@@ -37,4 +37,10 @@ public class UserProfileController {
             ) {
         userProfileService.uploadUserProfileImage(userId, file);
     }
+
+    // Download the image file from s3 bucket
+    @GetMapping("{userId}/image/download")
+    public byte[] downloadUserProfileImage(@PathVariable("userId")UUID userId) {
+        return userProfileService.downloadUserProfileImage(userId);
+    }
 }

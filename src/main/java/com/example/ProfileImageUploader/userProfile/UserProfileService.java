@@ -31,13 +31,7 @@ public class UserProfileService {
         isImage(file);
 
         // Check if the user exists in the database
-        UserProfile user = userProfileDatabaseAccess.getUserProFileList()
-                .stream()
-                .filter(userProfile -> userProfile.getUserId().equals(userId))
-                .findFirst()
-                .orElseThrow(() -> {
-                    throw new IllegalStateException(String.format("File with user ID: %s doesn't exist", userId));
-                });
+        UserProfile user = checkUser(userId);
 
         // Save metadata from file
         Map<String, String> metadata = new HashMap<>();
@@ -52,10 +46,21 @@ public class UserProfileService {
 
         try {
             fileStore.save(path, filename, Optional.of(metadata), file.getInputStream());
+            user.setProfileImageLink(filename);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
 
+    }
+
+    private UserProfile checkUser(UUID userId) {
+        return userProfileDatabaseAccess.getUserProFileList()
+                .stream()
+                .filter(userProfile -> userProfile.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new IllegalStateException(String.format("File with user ID: %s doesn't exist", userId));
+                });
     }
 
     private void isImage(MultipartFile file) {
@@ -71,5 +76,15 @@ public class UserProfileService {
         if (file.isEmpty()) {
             throw new IllegalStateException("Cannot upload the file" + "[" + file.getSize() + "]");
         }
+    }
+
+    public byte[] downloadUserProfileImage(UUID userId) {
+        // Get the user
+        UserProfile user = checkUser(userId);
+
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getUserId());
+
+        return user.getProfileImageLink().map(key -> fileStore.download(path, key))
+                .orElse(new byte[0]);
     }
 }
