@@ -1,12 +1,12 @@
-import './App.css';
-import UserProfile from './UserProfile';
+import "./App.css";
+import UserProfile from "./UserProfile";
 
 function App() {
-  return (
-    <div className="App">
-      <UserProfile />
-    </div>
-  );
+	return (
+		<div className="App">
+			<UserProfile />
+		</div>
+	);
 }
 
 export default App;
